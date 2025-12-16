@@ -14,6 +14,8 @@ public interface QuartoRepository {
 
     Optional<Quarto> findById(UUID id);
 
+    Optional<Quarto> findByNumero(String numero);
+
     List<Quarto> findAll();
 
     List<Quarto> findDisponiveisPorPeriodo(Periodo periodo);
