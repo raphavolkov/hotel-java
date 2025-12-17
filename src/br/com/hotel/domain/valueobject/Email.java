@@ -21,10 +21,9 @@ public class Email {
         }
 
         if (!EMAIL_PATTERN.matcher(valor).matches()){
-            throw new EmailComFormatoInvalidoException(valor); //
-            // TRATAR NA EXCEPTION /\
+            throw new EmailComFormatoInvalidoException();
         }
-        this.valor = valor;
+        this.valor = valor.trim().toLowerCase();
     }
 
     public String getValor() {

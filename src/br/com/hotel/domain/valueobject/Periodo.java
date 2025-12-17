@@ -33,6 +33,7 @@ public class Periodo {
     }
 
     public boolean conflitaCom(Periodo outro) {
+        Objects.requireNonNull(outro);
         return inicio.isBefore(outro.fim) && fim.isAfter(outro.inicio);
     }
 

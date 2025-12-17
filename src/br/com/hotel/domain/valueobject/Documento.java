@@ -12,7 +12,7 @@ public class Documento {
         if(valor == null || valor.isBlank()){
             throw new DocumentoInvalidoException();
         }
-        this.valor = valor;
+        this.valor = valor.trim();
     }
 
     public String getValor() {

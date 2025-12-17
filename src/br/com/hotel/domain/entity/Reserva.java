@@ -55,7 +55,7 @@ public class Reserva {
    }
 
    public void finalizar(){
-       if(status != StatusReserva.FINALIZADA){
+       if(status != StatusReserva.CONFIRMADA){
            throw new ReservaFinalizadaException();
        }
 
