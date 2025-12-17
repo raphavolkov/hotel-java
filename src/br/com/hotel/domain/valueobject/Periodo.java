@@ -1,6 +1,7 @@
 package br.com.hotel.domain.valueobject;
 
-import br.com.hotel.domain.valueobject.exceptions.PeriodoInvalidoException;
+import br.com.hotel.domain.valueobject.exceptions.PeriodoComDatasNulasException;
+import br.com.hotel.domain.valueobject.exceptions.PeriodoDeveSerComDataFinalAposInicialException;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -12,11 +13,11 @@ public class Periodo {
 
     public Periodo(LocalDate inicio, LocalDate fim) {
         if (inicio == null || fim == null) {
-            throw new PeriodoInvalidoException("Datas não podem ser nulas"); // TRATAR
+            throw new PeriodoComDatasNulasException();
         }
 
         if (!fim.isAfter(inicio)) {
-            throw new PeriodoInvalidoException("Data final deve ser após a inicial."); // TRATAR
+            throw new PeriodoDeveSerComDataFinalAposInicialException();
         }
 
         this.inicio = inicio;

@@ -13,8 +13,6 @@ public interface ReservaRepository {
 
     Optional<Reserva> findById(UUID id);
 
-    List<Reserva> findByQuarto(Quarto quarto);
-
     List<Reserva> findByQuartoId(UUID quartoId);
 
     List<Reserva> findAll();

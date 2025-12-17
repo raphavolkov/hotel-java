@@ -1,6 +1,9 @@
 package br.com.hotel.domain.entity;
 
-import br.com.hotel.domain.entity.exceptions.QuartoInvalidoException;
+import br.com.hotel.domain.entity.exceptions.QuartoComCapacidadeInvalidaException;
+import br.com.hotel.domain.entity.exceptions.QuartoNumeroEObrigatorioException;
+import br.com.hotel.domain.entity.exceptions.QuartoTipoEObrigatorioException;
+import br.com.hotel.domain.entity.exceptions.QuartoValorDiariaInvalidaException;
 import br.com.hotel.domain.enums.TipoQuarto;
 
 import java.util.UUID;
@@ -16,19 +19,19 @@ public class Quarto {
 
     public Quarto(String numero, TipoQuarto tipo, int capacidade, double valorDiaria) {
         if(capacidade <= 0) {
-            throw new QuartoInvalidoException("Capacidade Invalida");
+            throw new QuartoComCapacidadeInvalidaException();
         }
 
         if(valorDiaria < 0) {
-            throw new QuartoInvalidoException("Valor diaria Invalida");
+            throw new QuartoValorDiariaInvalidaException();
         }
 
         if (numero == null || numero.isBlank()) {
-            throw new QuartoInvalidoException("Número do quarto é obrigatório");
+            throw new QuartoNumeroEObrigatorioException();
         }
 
         if (tipo == null) {
-            throw new QuartoInvalidoException("Tipo do quarto é obrigatório");
+            throw new QuartoTipoEObrigatorioException();
         }
         this.id = UUID.randomUUID();
         this.numero = numero;

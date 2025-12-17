@@ -18,7 +18,5 @@ public interface QuartoRepository {
 
     List<Quarto> findAll();
 
-    List<Quarto> findDisponiveisPorPeriodo(Periodo periodo);
-
     List<Quarto> findPorTipo(TipoQuarto tipo);
 }

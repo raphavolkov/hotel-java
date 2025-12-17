@@ -1,5 +1,6 @@
 package br.com.hotel.application.usecase;
 
+import br.com.hotel.application.exceptions.ClienteJaCadastradoComEsteDocumentoException;
 import br.com.hotel.domain.entity.Cliente;
 import br.com.hotel.domain.repository.ClienteRepository;
 import br.com.hotel.domain.valueobject.Documento;
@@ -17,7 +18,7 @@ public class CadastrarClienteUseCase {
 
         clienteRepository.findByDocumento(documento)
                 .ifPresent(c -> {
-                    throw new IllegalStateException("Cliente já cadastrado com este documento");
+                    throw new ClienteJaCadastradoComEsteDocumentoException();
                 });
 
         Cliente cliente = new Cliente(nome, documento, email, telefone);

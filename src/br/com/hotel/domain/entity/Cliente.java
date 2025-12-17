@@ -1,6 +1,8 @@
 package br.com.hotel.domain.entity;
 
-import br.com.hotel.domain.entity.exceptions.ClienteInvalidoException;
+import br.com.hotel.domain.entity.exceptions.ClienteComDocumentoEEmailObrigatoriosException;
+import br.com.hotel.domain.entity.exceptions.ClienteComNomeObrigatorioException;
+import br.com.hotel.domain.entity.exceptions.ClienteEmailNaoPodeSerNuloException;
 import br.com.hotel.domain.valueobject.Documento;
 import br.com.hotel.domain.valueobject.Email;
 
@@ -16,11 +18,11 @@ public class Cliente {
 
     public Cliente(String nome, Documento documento, Email email, String telefone){
         if(nome == null || nome.isBlank()) {
-            throw new ClienteInvalidoException("Nome do cliente é obrigatorio");
+            throw new ClienteComNomeObrigatorioException();
         }
 
         if (documento == null || email == null) {
-            throw new ClienteInvalidoException("Documento e email são obrigatórios");
+            throw new ClienteComDocumentoEEmailObrigatoriosException();
         }
 
         this.id = UUID.randomUUID();
@@ -36,7 +38,7 @@ public class Cliente {
 
     public void atualizarEmail(Email novoEmail){
         if (novoEmail == null) {
-            throw new ClienteInvalidoException("Email não pode ser nulo");
+            throw new ClienteEmailNaoPodeSerNuloException();
         }
 
         this.email = novoEmail;

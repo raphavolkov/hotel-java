@@ -10,7 +10,7 @@ public class Documento {
 
     public Documento(String valor) {
         if(valor == null || valor.isBlank()){
-            throw new DocumentoInvalidoException("Documento Invalido");
+            throw new DocumentoInvalidoException();
         }
         this.valor = valor;
     }

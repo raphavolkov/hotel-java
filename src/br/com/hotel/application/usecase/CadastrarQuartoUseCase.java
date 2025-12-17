@@ -1,5 +1,6 @@
 package br.com.hotel.application.usecase;
 
+import br.com.hotel.application.exceptions.CadastrarQuartoComNumeroExistenteException;
 import br.com.hotel.domain.entity.Quarto;
 import br.com.hotel.domain.enums.TipoQuarto;
 import br.com.hotel.domain.repository.QuartoRepository;
@@ -16,7 +17,7 @@ public class CadastrarQuartoUseCase {
 
         quartoRepository.findByNumero(numero)
                 .ifPresent(q -> {
-                    throw new IllegalStateException("Já existe um quarto com esse numero");
+                    throw new CadastrarQuartoComNumeroExistenteException();
                 });
 
         Quarto quarto = new Quarto(numero, tipo, capacidade, valorDiaria);

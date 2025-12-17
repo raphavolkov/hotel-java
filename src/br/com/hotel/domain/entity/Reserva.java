@@ -1,6 +1,9 @@
 package br.com.hotel.domain.entity;
 
-import br.com.hotel.domain.entity.exceptions.ReservaInvalidaException;
+import br.com.hotel.domain.entity.exceptions.ReservaComClienteQuartoPeriodoObrigatoriosException;
+import br.com.hotel.domain.entity.exceptions.ReservaFinalizadaException;
+import br.com.hotel.domain.entity.exceptions.ReservaNaoPodeSerConfirmadaException;
+import br.com.hotel.domain.entity.exceptions.ReservaQuartoIndisponivelException;
 import br.com.hotel.domain.enums.StatusReserva;
 import br.com.hotel.domain.valueobject.Periodo;
 
@@ -16,7 +19,7 @@ public class Reserva {
 
    public Reserva(Cliente cliente, Quarto quarto, Periodo periodo) {
        if (cliente == null || quarto == null || periodo == null) {
-           throw new ReservaInvalidaException("Cliente, quarto e período são obrigatórios");
+           throw new ReservaComClienteQuartoPeriodoObrigatoriosException();
        }
 
        this.id = UUID.randomUUID();
@@ -28,11 +31,11 @@ public class Reserva {
 
    public void confirmar(){
        if (status != StatusReserva.CRIADA){
-           throw new ReservaInvalidaException("Reserva não pode ser confirmada"); // TRATAR
+           throw new ReservaNaoPodeSerConfirmadaException();
        }
 
        if (!quarto.isDisponivel()) {
-           throw new ReservaInvalidaException("Quarto indisponível");
+           throw new ReservaQuartoIndisponivelException();
        }
 
        this.status = StatusReserva.CONFIRMADA;
@@ -41,10 +44,26 @@ public class Reserva {
 
    public void cancelar(){
        if(status == StatusReserva.FINALIZADA){
-           throw new ReservaInvalidaException("Reserva finalizada não pode ser cancelada");
+           throw new ReservaFinalizadaException();
+       }
+
+       if (status == StatusReserva.CONFIRMADA) {
+           quarto.marcarDisponivel();
        }
 
        this.status = StatusReserva.CANCELADA;
+   }
+
+   public void finalizar(){
+       if(status != StatusReserva.FINALIZADA){
+           throw new ReservaFinalizadaException();
+       }
+
+       this.status = StatusReserva.FINALIZADA;
        quarto.marcarDisponivel();
    }
+
+    public Periodo getPeriodo() {
+        return periodo;
+    }
 }

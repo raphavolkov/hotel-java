@@ -1,6 +1,8 @@
 package br.com.hotel.domain.valueobject;
 
-import br.com.hotel.domain.valueobject.exceptions.EmailInvalidoException;
+import br.com.hotel.domain.valueobject.exceptions.EmailComFormatoInvalidoException;
+import br.com.hotel.domain.valueobject.exceptions.EmailNuloOuVazioException;
+
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -15,11 +17,12 @@ public class Email {
 
     public Email(String valor) {
         if (valor == null || valor.isEmpty() || valor.isBlank()){
-            throw new EmailInvalidoException("O email não pode ser nulo ou vazio.");
+            throw new EmailNuloOuVazioException();
         }
 
         if (!EMAIL_PATTERN.matcher(valor).matches()){
-            throw new EmailInvalidoException("O formato do email fornecido é inválido: " + valor);
+            throw new EmailComFormatoInvalidoException(valor); //
+            // TRATAR NA EXCEPTION /\
         }
         this.valor = valor;
     }

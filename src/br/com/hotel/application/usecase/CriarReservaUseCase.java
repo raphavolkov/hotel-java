@@ -1,5 +1,8 @@
 package br.com.hotel.application.usecase;
 
+import br.com.hotel.application.exceptions.ClienteNaoEncontradoException;
+import br.com.hotel.application.exceptions.QuartoIndisponivelNoPeriodoException;
+import br.com.hotel.application.exceptions.QuartoNaoEncontradoException;
 import br.com.hotel.domain.entity.Cliente;
 import br.com.hotel.domain.entity.Quarto;
 import br.com.hotel.domain.entity.Reserva;
@@ -29,13 +32,23 @@ public class CriarReservaUseCase {
     public Reserva executar(UUID clienteId, UUID quartoId, Periodo periodo) {
 
         Cliente cliente = clienteRepository.findById(clienteId)
-                .orElseThrow(() -> new IllegalStateException("Cliente não encontrado"));
+                .orElseThrow(() -> new ClienteNaoEncontradoException(clienteId));
 
         Quarto quarto = quartoRepository.findById(quartoId)
-                .orElseThrow(() -> new IllegalStateException("Quarto não encontrado"));
+                .orElseThrow(() -> new QuartoNaoEncontradoException(quartoId));
+
+        boolean existeConflito = reservaRepository
+                .findByQuartoId(quartoId)
+                .stream()
+                .anyMatch(reservaExistente ->
+                        reservaExistente.getPeriodo().conflitaCom(periodo)
+                );
+
+        if (existeConflito) {
+            throw new QuartoIndisponivelNoPeriodoException(quartoId);
+        }
 
         Reserva reserva = new Reserva(cliente, quarto, periodo);
-
         reserva.confirmar();
 
         reservaRepository.save(reserva);
