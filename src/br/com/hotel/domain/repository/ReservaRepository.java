@@ -1,6 +1,5 @@
 package br.com.hotel.domain.repository;
 
-import br.com.hotel.domain.entity.Quarto;
 import br.com.hotel.domain.entity.Reserva;
 
 import java.util.List;

@@ -16,7 +16,7 @@ public class Email {
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
 
     public Email(String valor) {
-        if (valor == null || valor.isEmpty() || valor.isBlank()){
+        if (valor == null || valor.isBlank()){
             throw new EmailNuloOuVazioException();
         }
 
@@ -33,8 +33,7 @@ public class Email {
     @Override
     public boolean equals(Object o) {
         if(this == o) return true;
-        if(!(o instanceof Email)) return false;
-        Email email = (Email) o;
+        if(!(o instanceof Email email)) return false;
         return valor.equals(email.valor);
     }
 

@@ -1,7 +1,7 @@
 package br.com.hotel.domain.entity;
 
 import br.com.hotel.domain.entity.exceptions.ReservaComClienteQuartoPeriodoObrigatoriosException;
-import br.com.hotel.domain.entity.exceptions.ReservaFinalizadaException;
+import br.com.hotel.domain.entity.exceptions.ReservaNaoPodeSerFinalizadaException;
 import br.com.hotel.domain.entity.exceptions.ReservaNaoPodeSerConfirmadaException;
 import br.com.hotel.domain.entity.exceptions.ReservaQuartoIndisponivelException;
 import br.com.hotel.domain.enums.StatusReserva;
@@ -44,7 +44,7 @@ public class Reserva {
 
    public void cancelar(){
        if(status == StatusReserva.FINALIZADA){
-           throw new ReservaFinalizadaException();
+           throw new ReservaNaoPodeSerFinalizadaException();
        }
 
        if (status == StatusReserva.CONFIRMADA) {
@@ -56,7 +56,7 @@ public class Reserva {
 
    public void finalizar(){
        if(status != StatusReserva.CONFIRMADA){
-           throw new ReservaFinalizadaException();
+           throw new ReservaNaoPodeSerFinalizadaException();
        }
 
        this.status = StatusReserva.FINALIZADA;
@@ -65,5 +65,14 @@ public class Reserva {
 
     public Periodo getPeriodo() {
         return periodo;
+    }
+    public UUID getId() {
+        return id;
+    }
+    public UUID getQuartoId() {
+        return quarto.getId();
+    }
+    public StatusReserva getStatus() {
+        return status;
     }
 }

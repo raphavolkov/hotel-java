@@ -22,8 +22,7 @@ public class Documento {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if(!(o instanceof Documento)) return false;
-        Documento that = (Documento) o;
+        if(!(o instanceof Documento that)) return false;
         return valor.equals(that.valor);
     }
 

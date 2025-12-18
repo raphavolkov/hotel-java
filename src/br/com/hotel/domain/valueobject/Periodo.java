@@ -40,8 +40,7 @@ public class Periodo {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Periodo)) return false;
-        Periodo periodo = (Periodo) o;
+        if (!(o instanceof Periodo periodo)) return false;
         return inicio.equals(periodo.inicio) && fim.equals(periodo.fim);
     }
 
@@ -49,4 +48,12 @@ public class Periodo {
     public int hashCode() {
         return Objects.hash(inicio, fim);
     }
+
+    /*
+
+    public boolean contem(LocalDate date){
+        return true;
+    }
+
+     */
 }

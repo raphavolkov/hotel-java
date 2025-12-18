@@ -53,4 +53,13 @@ public class Quarto {
         this.disponivel = true;
     }
 
+    public UUID getId() {
+        return id;
+    }
+    public String getNumero() {
+        return numero;
+    }
+    public TipoQuarto getTipo() {
+        return tipo;
+    }
 }
